@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container content">
+        <h1 class="mt-4">Variant Search</h1>
+        <form method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="chrom">Chromosome</label>
+                <input type="text" id="chrom" name="chrom" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="pos">Position</label>
+                <input type="text" id="pos" name="pos" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="ref">Reference</label>
+                <input type="text" id="ref" name="ref" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="alt">Alternate</label>
+                <input type="text" id="alt" name="alt" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        {% if result %}
+        <div class="result">
+            <h2>Search Results</h2>
+            <p><strong>Variant Count:</strong> {{ result[0] }}</p>
+            <p><strong>Files with Variant:</strong> {{ result[1] }}</p>
+            <p><strong>Total Files Searched:</strong> {{ result[2] }}</p>
+            <p><strong>Percentage:</strong> {{ result[3] }}%</p>
+            <p><strong>participant with the variant:</strong></p>
+            
+            <ul>
+                {% for file in result[4] %}
+                <li>{{ file }}</li>
+                {% endfor %}
+            </ul>
+            <p><a href="{{ result[5] }}">gnomAD link</a></p>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

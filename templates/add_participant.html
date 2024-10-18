@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container content">
+    <h1 class="mt-4">Add Participant</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id">
+        </div>
+
+        <div class="form-group">
+            <label for="FID">FID</label>
+            <input type="text" class="form-control" id="FID" name="FID">
+        </div>
+
+        <div class="form-group">
+            <label for="age_KF">Age at kidney failure</label>
+            <input type="text" class="form-control" id="age_KF" name="age_KF">
+        </div>
+
+        <br>
+    <label>Sex</label><br>
+    <input type="radio" name="Sex" id="Male" value="Male"> Male </input><br>
+    <input type="radio" name="Sex" id="Female" value="Female"> Female </input><br>
+
+    <br>
+    <label>Kidney failure status</label><br>
+    <input type="radio" name="KF" id="Yes" value="Yes"> Yes </input><br>
+    <input type="radio" name="KF" id="No" value="No"> No </input><br>
+
+
+    <br>
+    <label>Diagnostic variant type</label><br>
+    <input type="radio" name="Diag_var_type" id="Splicing" value="Splicing"> Splicing </input><br>
+    <input type="radio" name="Diag_var_type" id="PKD2_T" value="PKD2_T"> <em>PKD2</em> Truncating </input><br>
+    <input type="radio" name="Diag_var_type" id="PKD2_NT" value="PKD2_NT"> <em>PKD2</em> Non-Truncating </input><br>
+    <input type="radio" name="Diag_var_type" id="PKD1_T" value="PKD1_T"> <em>PKD1</em> Truncating </input><br>
+    <input type="radio" name="Diag_var_type" id="PKD1_NT" value="PKD1_NT"> <em>PKD1</em> Non-Truncating </input><br>
+    <input type="radio" name="Diag_var_type" id="Deletion" value="Deletion"> Deletion </input><br>
+    <input type="radio" name="Diag_var_type" id="Duplication" value="Duplication"> Duplication </input><br>
+    <input type="radio" name="Diag_var_type" id="Other" value="Other"> Other </input><br>
+
+
+
+    <br>
+        <div class="form-group">
+            <label for="Diagnostic_variant">Diagnostic variant</label>
+            <input type="text" class="form-control" id="Diagnostic_variant" name="Diagnostic_variant">
+        </div>
+
+
+        <div class="form-group">
+            <label for="imageUpload">Upload Imaging Data</label>
+            <div id="drop-zone" class="border p-4 text-center" style="border: 2px dashed #ccc;">
+                Drag and drop your image file here or click to select (file must be in format of ID.png)
+                <input type="file" id="imageUpload" name="image" class="form-control-file" style="display: none;" accept="image/*">
+            </div>
+        </div>
+
+         <div class="form-group">
+          <label for="comment">Notes:</label>
+          <textarea class="form-control" rows="5" id="Notes"></textarea>
+        </div> 
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('imageUpload');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '#f1f1f1';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.backgroundColor = '#fff';
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '#fff';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;  // Set the dropped files to the input element
+        }
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container content">
+    <h1 class="mt-4">Bar chart</h1>
+    <div id="barChart"></div>
+
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script type="text/javascript">
+        // Plotly chart from the data passed from Flask (JSON)
+        var plot_data = {{ graphJSON | safe }};
+        Plotly.plot('barChart', plot_data, {});
+    </script>
+</div>
+
+
+
+{% endblock %}

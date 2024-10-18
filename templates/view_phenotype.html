@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+<div class="container content">
+    <h4 class="mt-4">Hold shift if you want to do a multi-column sort</h4>
+</div>
+
+<div id="table-wrapper"></div>
+<!-- Add Download CSV button -->
+<div class="container">
+    <button id="download-csv" class="btn btn-primary mt-3">Download CSV</button>
+</div>
+
+    <script>
+        // Initialize Grid.js table with Flask passed data
+        new gridjs.Grid({
+            columns: {{ column_names|tojson }}, 
+            //columns: [
+            //{{ column_names|tojson }},  // Use Flask's tojson filter to pass column names
+            //{
+            //    name: "{{ column_names[1] }}",  // Target the second column specifically
+            //    formatter: (cell) => gridjs.html(`<span style="color: ${cell === 'N' ? 'green' : 'red'}">${cell}</span>`)
+            //},
+            //],
+                
+            data: {{ row_data|tojson }},         // Use Flask's tojson filter to pass row data
+            pagination: {
+                enabled: true,
+                limit: 10 // Number of rows per page
+            },
+            search: true, // Enable search functionality
+            sort: true,   // Enable sorting on columns
+        }).render(document.getElementById("table-wrapper"));
+
+
+    </script>
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container content">
+    <h1 class="mt-4">Participant Search</h1>
+        <!-- Search form goes here -->
+    <form action="{{ url_for('participant_search') }}" method="post" class="mt-4">
+        <input type="text" name="search_id" placeholder="Enter Participant ID" required class="form-control">
+        <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
+        <!-- Optionally, you can add additional content or instructions here -->
+    </div>
+
+{% endblock %}

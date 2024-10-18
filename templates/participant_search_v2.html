@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container content">
+        <h1 class="mt-4">Search results for individual {{ search_id }}</h1>
+        <h2 class="mt-4">Phenotype</h2>
+        {% if result %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mt-4">
+                <thead>
+                    <tr>
+                        {% for column in result[0].keys() %}
+                        <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in result %}
+                    <tr>
+                        {% for value in item.values() %}
+                            {% if value is not none %}
+                            <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
+    </div>
+
+
+        <div class="container content">
+        <h2 class="mt-4">Family details</h2>
+        {% if result %}
+            <p>Mother's ID: <a href="{{ url_for('clickable_participant_search', search_id=mother_id[0]) }}"> {{ mother_id[0] }}</a></p>
+            <p>Father's ID: <a href="{{ url_for('clickable_participant_search', search_id=father_id[0]) }}"> {{ father_id[0] }}</a></p>
+            <p>Family ID: {{ family_id[0] }}</p>
+        </div>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
+    </div>
+
+
+    <div class="container content">
+        <h2 class="mt-4">Family pedigree</h2>
+        <p>image url: {{ image_url }}</p>
+        {% if result %}
+        <img src="{{ image_url }}" alt="Family Pedigree Image">        
+        </div>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
+    </div>
+
+
+
+    <div class="container content">
+        <h2 class="mt-4">Variants</h2>
+        {% if new_var_table %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover mt-4">
+                <thead>
+                    <tr>
+                        {% for column in new_var_table[0].keys() %}
+                        <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in new_var_table %}
+                    <tr>
+                        {% for value in item.values() %}
+                            {% if value is not none %}
+                            <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
+        <a href="{{ url_for('participant_search') }}" class="btn btn-primary mt-3">Back to Search</a>
+    </div>
+
+{% endblock %}
